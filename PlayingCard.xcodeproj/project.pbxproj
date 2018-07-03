@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F382E85F20E5225A006787F5 /* PlayingCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E85E20E5225A006787F5 /* PlayingCardDeck.swift */; };
 		F382E86120E638ED006787F5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E86020E638ED006787F5 /* Int.swift */; };
+		F382E86320E9DDA9006787F5 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E86220E9DDA9006787F5 /* PlayingCardView.swift */; };
+		F382E86520EB1FC7006787F5 /* CGExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E86420EB1FC7006787F5 /* CGExtension.swift */; };
 		F3BD2B7620E51D270067CA14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD2B7520E51D270067CA14 /* AppDelegate.swift */; };
 		F3BD2B7820E51D270067CA14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BD2B7720E51D270067CA14 /* ViewController.swift */; };
 		F3BD2B7B20E51D270067CA14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3BD2B7920E51D270067CA14 /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 /* Begin PBXFileReference section */
 		F382E85E20E5225A006787F5 /* PlayingCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardDeck.swift; sourceTree = "<group>"; };
 		F382E86020E638ED006787F5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		F382E86220E9DDA9006787F5 /* PlayingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardView.swift; sourceTree = "<group>"; };
+		F382E86420EB1FC7006787F5 /* CGExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGExtension.swift; sourceTree = "<group>"; };
 		F3BD2B7220E51D270067CA14 /* PlayingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3BD2B7520E51D270067CA14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3BD2B7720E51D270067CA14 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +48,7 @@
 		F3BD2B6920E51D270067CA14 = {
 			isa = PBXGroup;
 			children = (
+				F382E86420EB1FC7006787F5 /* CGExtension.swift */,
 				F3BD2B7420E51D270067CA14 /* PlayingCard */,
 				F3BD2B7320E51D270067CA14 /* Products */,
 			);
@@ -63,6 +68,7 @@
 				F3BD2B8720E51D880067CA14 /* Support */,
 				F3BD2B7720E51D270067CA14 /* ViewController.swift */,
 				F382E86020E638ED006787F5 /* Int.swift */,
+				F382E86220E9DDA9006787F5 /* PlayingCardView.swift */,
 				F3BD2B8820E51DB70067CA14 /* PlayingCard.swift */,
 				F382E85E20E5225A006787F5 /* PlayingCardDeck.swift */,
 				F3BD2B7920E51D270067CA14 /* Main.storyboard */,
@@ -152,7 +158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F382E86520EB1FC7006787F5 /* CGExtension.swift in Sources */,
 				F3BD2B7820E51D270067CA14 /* ViewController.swift in Sources */,
+				F382E86320E9DDA9006787F5 /* PlayingCardView.swift in Sources */,
 				F382E85F20E5225A006787F5 /* PlayingCardDeck.swift in Sources */,
 				F382E86120E638ED006787F5 /* Int.swift in Sources */,
 				F3BD2B8920E51DB70067CA14 /* PlayingCard.swift in Sources */,
