@@ -79,6 +79,10 @@ class PlayingCardView: UIView {
         label.isHidden = !isFacedUp
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setNeedsDisplay()
+        setNeedsLayout()
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         cofigureCornerLabel(upperLeftCornerLabel)
