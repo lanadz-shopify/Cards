@@ -66,7 +66,7 @@ class PlayingCardView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: 16.0)
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
         UIColor.white.setFill()
         roundedRect.fill()
