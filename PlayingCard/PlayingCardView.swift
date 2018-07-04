@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayingCardView: UIView {
-    var rank: Int = 12 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var rank: Int = 9 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var suit: String = "♣️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
@@ -65,14 +65,43 @@ class PlayingCardView: UIView {
         return label
     }
 
-    override func draw(_ rect: CGRect) {
-        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        roundedRect.addClip()
-        UIColor.white.setFill()
-        roundedRect.fill()
+    private func drawPips() {
+        let pipsPerRowForRank = [[0],[1],[1,1],[1,1,1],[2,2],[2,1,2],[2,2,2],[2,1,2,2],[2,2,2,2],[2,2,1,2,2],[2,2,2,2,2]]
 
-        if let faceCardImage = UIImage(named: rankString+suit) {
-            faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+        func createPipsString(thatFits pipRect: CGRect) -> NSAttributedString {
+            let maxVerticalPipCount = CGFloat(pipsPerRowForRank.reduce(0) { max($1.count, $0) })
+            let maxHorizolntalPipCount = CGFloat(pipsPerRowForRank.reduce(0) { max($1.max() ?? 0, $0) })
+            let verticalPipRowSpacing = pipRect.size.height / maxVerticalPipCount
+            let attemptedPipString = centeredAttributedString(suit, fontSize: verticalPipRowSpacing)
+            let probablyOkayPipStringFontSize = verticalPipRowSpacing / (attemptedPipString.size().height / verticalPipRowSpacing)
+            let probablyOkayPipString = centeredAttributedString(suit, fontSize: probablyOkayPipStringFontSize)
+
+            if probablyOkayPipString.size().width > pipRect.size.width / maxHorizolntalPipCount {
+                return centeredAttributedString(suit, fontSize: probablyOkayPipStringFontSize / (probablyOkayPipString.size().width / (pipRect.size.width / maxHorizolntalPipCount)))
+            } else {
+                return probablyOkayPipString
+            }
+        }
+
+        if pipsPerRowForRank.indices.contains(rank) {
+            let pipsPerRow = pipsPerRowForRank[rank]
+            var pipRect = bounds.insetBy(dx: cornerOffset, dy: cornerOffset).insetBy(dx: corneredString.size().width, dy: corneredString.size().height / 2)
+            let pipString = createPipsString(thatFits: pipRect)
+            let pipRowSpacing = pipRect.size.height / CGFloat(pipsPerRow.count)
+            pipRect.size.height = pipString.size().height
+            pipRect.origin.y += (pipRowSpacing - pipRect.size.height) / 2
+            for pipCount in pipsPerRow {
+                switch pipCount {
+                case 1:
+                    pipString.draw(in: pipRect)
+                case 2:
+                    pipString.draw(in: pipRect.leftHalf)
+                    pipString.draw(in: pipRect.rightHalf)
+                default:
+                    break
+                }
+                pipRect.origin.y += pipRowSpacing
+            }
         }
     }
 
@@ -87,6 +116,20 @@ class PlayingCardView: UIView {
         setNeedsDisplay()
         setNeedsLayout()
     }
+
+    override func draw(_ rect: CGRect) {
+        let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        roundedRect.addClip()
+        UIColor.white.setFill()
+        roundedRect.fill()
+
+        if let faceCardImage = UIImage(named: rankString+suit) {
+            faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+        } else {
+            drawPips()
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         cofigureCornerLabel(upperLeftCornerLabel)

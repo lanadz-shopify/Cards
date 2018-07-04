@@ -13,7 +13,7 @@ extension CGRect {
         return CGRect(x: minX, y: minY, width: width/2, height: height)
     }
 
-    var righttHalf: CGRect {
+    var rightHalf: CGRect {
         return CGRect(x: midX, y: minY, width: width/2, height: height)
     }
 
