@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayingCardView: UIView {
-    var rank: Int = 11 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var rank: Int = 12 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var suit: String = "♣️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
