@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayingCardView: UIView {
-    var rank: Int = 5 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var rank: Int = 11 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var suit: String = "♣️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
@@ -70,6 +70,10 @@ class PlayingCardView: UIView {
         roundedRect.addClip()
         UIColor.white.setFill()
         roundedRect.fill()
+
+        if let faceCardImage = UIImage(named: rankString+suit) {
+            faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+        }
     }
 
     private func cofigureCornerLabel(_ label: UILabel) {
