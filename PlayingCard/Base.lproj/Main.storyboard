@@ -20,10 +20,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="BGQ-V6-RfU" customClass="PlayingCardView" customModule="PlayingCard" customModuleProvider="target">
-                                <rect key="frame" x="16" y="70" width="342" height="547"/>
+                                <rect key="frame" x="16" y="115.5" width="342" height="456"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="BGQ-V6-RfU" secondAttribute="height" multiplier="5:8" id="1Eh-Ge-NM1"/>
+                                    <constraint firstAttribute="width" secondItem="BGQ-V6-RfU" secondAttribute="height" multiplier="15:20" id="1Eh-Ge-NM1"/>
                                     <constraint firstAttribute="width" priority="250" constant="800" id="DTc-ou-zvg"/>
                                 </constraints>
                             </view>
