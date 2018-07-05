@@ -17,6 +17,17 @@ class PlayingCardView: UIView {
     @IBInspectable
     var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
+    var faceCardScale: CGFloat = SizeRatio.faceCardImageSizeToBoundsSize { didSet { setNeedsDisplay() } }
+
+    @objc func adjustFaceCardScale(byHandlingGestureRecognizedBy recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed,.ended:
+            faceCardScale *= recognizer.scale
+            recognizer.scale = 1.0
+        default:
+            break
+        }
+    }
     private var rankString: String {
         switch rank {
         case 1: return "A"
@@ -129,7 +140,7 @@ class PlayingCardView: UIView {
 
         if isFacedUp {
             if let faceCardImage = UIImage(named: rankString+suit) {
-                faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+                faceCardImage.draw(in: bounds.zoom(by: faceCardScale))
             } else {
                 drawPips()
             }
