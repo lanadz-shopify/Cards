@@ -9,9 +9,9 @@
 import UIKit
 
 class PlayingCardView: UIView {
-    var rank: Int = 9 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var rank: Int = 11 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var suit: String = "♣️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var isFacedUp: Bool = false { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
     private var rankString: String {
         switch rank {
@@ -131,12 +131,12 @@ class PlayingCardView: UIView {
             }
         } else {
             if let faceBackImage = UIImage(named: "back") {
-                let imageView = UIImageView(frame: bounds)
-                imageView.contentMode = .scaleAspectFit // OR .scaleAspectFill
-                imageView.clipsToBounds = true
-                imageView.image = faceBackImage
-                addSubview(imageView)
-//                faceBackImage.draw(in: bounds) // stretched image
+//                let imageView = UIImageView(frame: bounds)
+//                imageView.contentMode = .scaleAspectFit // OR .scaleAspectFill
+//                imageView.clipsToBounds = true
+//                imageView.image = faceBackImage
+//                addSubview(imageView)
+                faceBackImage.draw(in: bounds)//.zoom(by: 1.15)) // stretched image
             }
         }
     }
