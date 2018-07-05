@@ -11,7 +11,7 @@ import UIKit
 class PlayingCardView: UIView {
     var rank: Int = 9 { didSet { setNeedsDisplay(); setNeedsLayout() } }
     var suit: String = "♣️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
-    var isFacedUp: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    var isFacedUp: Bool = false { didSet { setNeedsDisplay(); setNeedsLayout() } }
 
     private var rankString: String {
         switch rank {
@@ -123,10 +123,21 @@ class PlayingCardView: UIView {
         UIColor.white.setFill()
         roundedRect.fill()
 
-        if let faceCardImage = UIImage(named: rankString+suit) {
-            faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+        if isFacedUp {
+            if let faceCardImage = UIImage(named: rankString+suit) {
+                faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+            } else {
+                drawPips()
+            }
         } else {
-            drawPips()
+            if let faceBackImage = UIImage(named: "back") {
+                let imageView = UIImageView(frame: bounds)
+                imageView.contentMode = .scaleAspectFit // OR .scaleAspectFill
+                imageView.clipsToBounds = true
+                imageView.image = faceBackImage
+                addSubview(imageView)
+//                faceBackImage.draw(in: bounds) // stretched image
+            }
         }
     }
 
@@ -141,8 +152,8 @@ class PlayingCardView: UIView {
             .translatedBy(x: lowerRightCornerLabel.frame.size.width, y: lowerRightCornerLabel.frame.size.height)
             .rotated(by: CGFloat.pi)
         lowerRightCornerLabel.frame.origin = CGPoint(x: bounds.maxX, y: bounds.maxY)
-        .offsetBy(dx: -cornerOffset, dy: -cornerOffset)
-        .offsetBy(dx: -lowerRightCornerLabel.frame.size.width, dy: -lowerRightCornerLabel.frame.size.height)
+            .offsetBy(dx: -cornerOffset, dy: -cornerOffset)
+            .offsetBy(dx: -lowerRightCornerLabel.frame.size.width, dy: -lowerRightCornerLabel.frame.size.height)
 
     }
 
