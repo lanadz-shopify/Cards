@@ -20,7 +20,8 @@ class ViewController: UIViewController {
     //        }
     //    }
 
-    @IBOutlet weak var playingCardView: PlayingCardView! //{
+    @IBOutlet var playingCardsViews: [PlayingCardView]!
+    //@IBOutlet weak var playingCardView: PlayingCardView! {
     //        didSet {
     //            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(nextCard))
     //            swipe.direction = [.left,.right]
@@ -39,5 +40,17 @@ class ViewController: UIViewController {
     //    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        var cards = [PlayingCard]()
+        for _ in 0...((playingCardsViews.count+1)/2) {
+            if let card = deck.draw() {
+                cards += [card, card]
+            }
+        }
+        for cardView in playingCardsViews {
+            cardView.isFacedUp = true
+            let card = cards.remove(at: cards.count.arc4random)
+            cardView.rank = card.rank.order
+            cardView.suit = card.suit.rawValue
+        }
     }
 }
