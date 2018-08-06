@@ -47,10 +47,48 @@ class ViewController: UIViewController {
             }
         }
         for cardView in playingCardsViews {
-            cardView.isFacedUp = true
+            cardView.isFacedUp = false
             let card = cards.remove(at: cards.count.arc4random)
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
+            cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
+        }
+    }
+
+    private var faceUpCardViews: [PlayingCardView] {
+        return playingCardsViews.filter { $0.isFacedUp && !$0.isHidden }
+    }
+    @objc func flipCard(_ recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            if let chosenCardView = recognizer.view as? PlayingCardView {
+                UIView.transition(
+                    with: chosenCardView,
+                    duration: 0.6,
+                    options: [.transitionFlipFromRight],
+
+                    animations: {
+                        chosenCardView.isFacedUp = !chosenCardView.isFacedUp
+                    },
+
+                    completion: { finished in
+                        if self.faceUpCardViews.count >= 2 {
+                            self.faceUpCardViews.forEach { cardView in
+                                UIView.transition(
+                                    with: cardView,
+                                    duration: 0.6,
+                                    options: [.transitionFlipFromRight],
+                                    animations: {
+                                        cardView.isFacedUp = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+        default:
+            break
         }
     }
 }
