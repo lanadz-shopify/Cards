@@ -23,9 +23,9 @@ extension Int {
 extension CGFloat {
     var arc4random: CGFloat {
         if self > 0 {
-            return CGFloat(arc4random_uniform(UInt32(self)))
+            return CGFloat(arc4random_uniform(UInt32(self*1000))) / 1000.0
         } else if self < 0 {
-            return CGFloat(arc4random_uniform(UInt32(-self)))
+            return CGFloat(arc4random_uniform(UInt32(-self*1000))) / 1000.0
         } else {
             return 0
         }

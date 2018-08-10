@@ -55,8 +55,6 @@ class ViewController: UIViewController {
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
             cardBehaviour.addItem(cardView)
-
-
         }
     }
 
@@ -74,6 +72,7 @@ class ViewController: UIViewController {
         switch recognizer.state {
         case .ended:
             if let chosenCardView = recognizer.view as? PlayingCardView {
+                cardBehaviour.removeItem(chosenCardView)
                 UIView.transition(
                     with: chosenCardView,
                     duration: 0.6,
@@ -123,8 +122,15 @@ class ViewController: UIViewController {
                                     options: [.transitionFlipFromRight],
                                     animations: {
                                         cardView.isFacedUp = false
+                                },
+                                    completion: { finished in
+                                        self.cardBehaviour.addItem(cardView)
                                 }
                                 )
+                            }
+                        } else {
+                            if !chosenCardView.isFacedUp {
+                                self.cardBehaviour.addItem(chosenCardView)
                             }
                         }
                 }
