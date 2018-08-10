@@ -21,6 +21,21 @@ class ViewController: UIViewController {
     //    }
 
     @IBOutlet var playingCardsViews: [PlayingCardView]!
+    lazy var animator = UIDynamicAnimator(referenceView: view)
+    lazy var collisionBehaviour: UICollisionBehavior = {
+        let behaviour = UICollisionBehavior()
+        behaviour.translatesReferenceBoundsIntoBoundary = true
+        animator.addBehavior(behaviour)
+        return behaviour
+    }()
+    lazy var itemBehaviour: UIDynamicItemBehavior = {
+        let behaviour = UIDynamicItemBehavior()
+        behaviour.allowsRotation = false
+        behaviour.elasticity = 1.0
+        behaviour.resistance = 0
+        animator.addBehavior(behaviour)
+        return behaviour
+    }()
     //@IBOutlet weak var playingCardView: PlayingCardView! {
     //        didSet {
     //            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(nextCard))
@@ -52,12 +67,28 @@ class ViewController: UIViewController {
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
+            collisionBehaviour.addItem(cardView)
+            itemBehaviour.addItem(cardView)
+            let push = UIPushBehavior(items: [cardView], mode: .instantaneous)
+            push.angle = (2*CGFloat.pi).arc4random
+            push.magnitude = CGFloat(1.0) + CGFloat(2.0).arc4random
+            push.action = { [unowned push] in
+                push.dynamicAnimator?.removeBehavior(push)
+            }
+            animator.addBehavior(push)
         }
     }
 
     private var faceUpCardViews: [PlayingCardView] {
         return playingCardsViews.filter { $0.isFacedUp && !$0.isHidden }
     }
+
+    private var faceUpCardViewsMatched: Bool {
+        return faceUpCardViews.count == 2 &&
+            faceUpCardViews[0].rank == faceUpCardViews[1].rank &&
+            faceUpCardViews[0].suit  == faceUpCardViews[1].suit
+    }
+
     @objc func flipCard(_ recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
@@ -69,10 +100,41 @@ class ViewController: UIViewController {
 
                     animations: {
                         chosenCardView.isFacedUp = !chosenCardView.isFacedUp
-                    },
+                },
 
                     completion: { finished in
-                        if self.faceUpCardViews.count >= 2 {
+                        if self.faceUpCardViewsMatched {
+                            UIViewPropertyAnimator.runningPropertyAnimator(
+                                withDuration: 0.6,
+                                delay: 0,
+                                options: [],
+                                animations: {
+                                    self.faceUpCardViews.forEach{
+                                        $0.transform = CGAffineTransform.identity.scaledBy(x: 3.0, y: 3.0)
+                                    }
+                            },
+                                completion: { position in
+                                    UIViewPropertyAnimator.runningPropertyAnimator(
+                                        withDuration: 0.75,
+                                        delay: 0,
+                                        options: [],
+                                        animations: {
+                                            self.faceUpCardViews.forEach{
+                                                $0.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1)
+                                                $0.alpha = 0
+                                            }
+                                    },
+                                        completion: { position in
+                                            self.faceUpCardViews.forEach{
+                                                $0.isHidden = true
+                                                $0.alpha = 1
+                                                $0.transform = .identity
+                                            }
+                                    }
+                                    )
+                            }
+                            )
+                        } else if self.faceUpCardViews.count >= 2 {
                             self.faceUpCardViews.forEach { cardView in
                                 UIView.transition(
                                     with: cardView,
@@ -80,11 +142,11 @@ class ViewController: UIViewController {
                                     options: [.transitionFlipFromRight],
                                     animations: {
                                         cardView.isFacedUp = false
-                                    }
+                                }
                                 )
                             }
                         }
-                    }
+                }
                 )
             }
         default:
