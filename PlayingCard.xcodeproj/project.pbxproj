@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F3030068211D373A003969D7 /* CardBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3030067211D373A003969D7 /* CardBehaviour.swift */; };
 		F382E85F20E5225A006787F5 /* PlayingCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E85E20E5225A006787F5 /* PlayingCardDeck.swift */; };
 		F382E86120E638ED006787F5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E86020E638ED006787F5 /* Int.swift */; };
 		F382E86320E9DDA9006787F5 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F382E86220E9DDA9006787F5 /* PlayingCardView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F3030067211D373A003969D7 /* CardBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardBehaviour.swift; path = PlayingCard/CardBehaviour.swift; sourceTree = "<group>"; };
 		F382E85E20E5225A006787F5 /* PlayingCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardDeck.swift; sourceTree = "<group>"; };
 		F382E86020E638ED006787F5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		F382E86220E9DDA9006787F5 /* PlayingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardView.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		F3BD2B6920E51D270067CA14 = {
 			isa = PBXGroup;
 			children = (
+				F3030067211D373A003969D7 /* CardBehaviour.swift */,
 				F382E86420EB1FC7006787F5 /* CGExtension.swift */,
 				F3BD2B7420E51D270067CA14 /* PlayingCard */,
 				F3BD2B7320E51D270067CA14 /* Products */,
@@ -163,6 +166,7 @@
 				F382E86320E9DDA9006787F5 /* PlayingCardView.swift in Sources */,
 				F382E85F20E5225A006787F5 /* PlayingCardDeck.swift in Sources */,
 				F382E86120E638ED006787F5 /* Int.swift in Sources */,
+				F3030068211D373A003969D7 /* CardBehaviour.swift in Sources */,
 				F3BD2B8920E51DB70067CA14 /* PlayingCard.swift in Sources */,
 				F3BD2B7620E51D270067CA14 /* AppDelegate.swift in Sources */,
 			);

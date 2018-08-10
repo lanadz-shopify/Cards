@@ -22,20 +22,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var playingCardsViews: [PlayingCardView]!
     lazy var animator = UIDynamicAnimator(referenceView: view)
-    lazy var collisionBehaviour: UICollisionBehavior = {
-        let behaviour = UICollisionBehavior()
-        behaviour.translatesReferenceBoundsIntoBoundary = true
-        animator.addBehavior(behaviour)
-        return behaviour
-    }()
-    lazy var itemBehaviour: UIDynamicItemBehavior = {
-        let behaviour = UIDynamicItemBehavior()
-        behaviour.allowsRotation = false
-        behaviour.elasticity = 1.0
-        behaviour.resistance = 0
-        animator.addBehavior(behaviour)
-        return behaviour
-    }()
+    lazy var cardBehaviour = CardBehaviour(in: animator)
     //@IBOutlet weak var playingCardView: PlayingCardView! {
     //        didSet {
     //            let swipe = UISwipeGestureRecognizer(target: self, action: #selector(nextCard))
@@ -67,15 +54,9 @@ class ViewController: UIViewController {
             cardView.rank = card.rank.order
             cardView.suit = card.suit.rawValue
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(flipCard(_:))))
-            collisionBehaviour.addItem(cardView)
-            itemBehaviour.addItem(cardView)
-            let push = UIPushBehavior(items: [cardView], mode: .instantaneous)
-            push.angle = (2*CGFloat.pi).arc4random
-            push.magnitude = CGFloat(1.0) + CGFloat(2.0).arc4random
-            push.action = { [unowned push] in
-                push.dynamicAnimator?.removeBehavior(push)
-            }
-            animator.addBehavior(push)
+            cardBehaviour.addItem(cardView)
+
+
         }
     }
 
